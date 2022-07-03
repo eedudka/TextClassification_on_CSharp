@@ -405,11 +405,11 @@
             this.materialComboBox1.IntegralHeight = false;
             this.materialComboBox1.ItemHeight = 43;
             this.materialComboBox1.Items.AddRange(new object[] {
-            "Бизнес",
-            "Отдых",
-            "Политика",
-            "Спорт",
-            "Наука и технологии"});
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"});
             this.materialComboBox1.Location = new System.Drawing.Point(13, 376);
             this.materialComboBox1.MaxDropDownItems = 4;
             this.materialComboBox1.MouseState = MaterialSkin.MouseState.OUT;

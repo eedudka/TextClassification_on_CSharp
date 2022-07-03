@@ -1,21 +1,18 @@
-﻿using MaterialSkin.Controls;
+﻿using LiveChartsCore.SkiaSharpView;
+using MaterialSkin.Controls;
+using Microsoft.ML.OnnxRuntime;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-using FastText.NetWrapper;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TextClassification.ProcessingClass;
 using TextClassification.ProcessingClass.Classification;
 using TextClassification.ProcessingClass.dbComand;
-using TextClassification.ProcessingClass.Vizualization;
 using TextClassification.ProcessingClass.SplitFilesIntoFolder;
-using LiveChartsCore.SkiaSharpView;
-using System.Threading.Tasks;
-using TextClassification.ProcessingClass;
-using System.Drawing;
-using System.Drawing.Imaging;
-using Microsoft.ML.OnnxRuntime;
-using System.Text;
+using TextClassification.ProcessingClass.Vizualization;
 
 namespace TextClassification
 {
@@ -276,11 +273,11 @@ namespace TextClassification
             string ClassName = string.Empty;
             switch (ClassValue)
             {
-                case 1: ClassName = "Бизнес"; break;
-                case 2: ClassName = "Отдых"; break;
-                case 3: ClassName = "Политика"; break;
-                case 4: ClassName = "Спорт"; break;
-                case 5: ClassName = "Наука и технологии"; break;
+                case 1: ClassName = "c1"; break;
+                case 2: ClassName = "c2"; break;
+                case 3: ClassName = "c3"; break;
+                case 4: ClassName = "c4"; break;
+                case 5: ClassName = "c5"; break;
             }
             return ClassName;
         }
