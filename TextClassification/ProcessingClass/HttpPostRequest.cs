@@ -49,7 +49,7 @@ namespace TextClassification.ProcessingClass
             catch (Exception ex)
             {
                 Log log = new Log();
-                log.Add("Ошибка при получении запроса с WebAPI.", "GetVectorFromWebAPI", ex.ToString());
+                log.Add("Ошибка при получении запроса с WebAPI.", "GetVectorFromWebAPI");
                 return null;
             }
 

@@ -30,7 +30,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при построении PIECHART", "BuildPieData", ex.ToString());
+                log.Add("Вызванна ошибка при построении PIECHART", "BuildPieData");
                 return null;
             }
             
@@ -61,7 +61,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при построении ColumnChart", "BuildColumnChartData", ex.ToString());
+                log.Add("Вызванна ошибка при построении ColumnChart", "BuildColumnChartData");
                 return null;
             }
             

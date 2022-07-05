@@ -100,7 +100,7 @@ namespace TextClassification.ProcessingClass.Classification
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при нормализации текста", "TextNormalize", ex.ToString());
+                log.Add("Вызванна ошибка при нормализации текста", "TextNormalize");
             }
         }
         private void TextClear()
@@ -126,7 +126,7 @@ namespace TextClassification.ProcessingClass.Classification
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при очистки текста", "TextClear", ex.ToString());
+                log.Add("Вызванна ошибка при очистки текста", "TextClear");
             }
         }
         private string[] PdfCleaner(string[] tempTokenz)

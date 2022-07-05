@@ -45,7 +45,7 @@ namespace TextClassification.ProcessingClass.Classification
             catch(Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при получении текста из файла", "GetTextFromFile", ex.ToString());
+                log.Add("Вызванна ошибка при получении текста из файла", "GetTextFromFile");
             }
             return getingText;
         }

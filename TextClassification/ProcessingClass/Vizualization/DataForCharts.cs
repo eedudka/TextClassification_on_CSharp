@@ -29,7 +29,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при составлении выборки для PIECHART", "GetAllDataFromDB", ex.ToString());
+                log.Add("Вызванна ошибка при составлении выборки для PIECHART", "GetAllDataFromDB");
                 return null;
             }
             
@@ -53,7 +53,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при составлении выборки для PIECHART", "GetSelectDataFromDBForPie", ex.ToString());
+                log.Add("Вызванна ошибка при составлении выборки для PIECHART", "GetSelectDataFromDBForPie");
                 return null;
             }
             
@@ -78,7 +78,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при составлении выборки для ColumnChart", "GetAllDataFromDBForColumnChart", ex.ToString());
+                log.Add("Вызванна ошибка при составлении выборки для ColumnChart", "GetAllDataFromDBForColumnChart");
                 return null;
             }
             
@@ -105,7 +105,7 @@ namespace TextClassification.ProcessingClass.Vizualization
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при составлении выборки для ColumnChart", "GetSelectDataFromDBForColumnChart", ex.ToString());
+                log.Add("Вызванна ошибка при составлении выборки для ColumnChart", "GetSelectDataFromDBForColumnChart");
                 return null;
             }
             

@@ -40,7 +40,7 @@ namespace TextClassification.ProcessingClass.Classification
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при получении класса текста", "GetClassName", ex.ToString());
+                log.Add("Вызванна ошибка при получении класса текста", "GetClassName");
                 return 0;
             }
         }

@@ -32,7 +32,7 @@ namespace TextClassification.ProcessingClass.Classification
             catch(Exception ex) 
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при определении языка", "GetTextLanguage", ex.ToString());
+                log.Add("Вызванна ошибка при определении языка", "GetTextLanguage");
                 return string.Empty;
             }
             

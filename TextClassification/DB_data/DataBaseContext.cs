@@ -14,7 +14,7 @@ namespace TextClassification.DB_data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=DocumentClass; User Id=your_user;Password=your_password");
+            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=DocumentClass; User Id=postgres;Password=your_password");
         }
 
     }

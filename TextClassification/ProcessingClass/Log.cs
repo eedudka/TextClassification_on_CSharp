@@ -10,16 +10,16 @@ namespace TextClassification.ProcessingClass
 {
     public class Log
     {
-        public async void Add(string Disc,string FuncName,string Ex)
+        public async void Add(string Disc,string FuncName)
         {
 
             string AddToLog = "[" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") 
                                + Environment.UserName 
                                + FuncName
                                + Disc
-                               + Ex + "]";
+                               + "]";
 
-            await File.AppendAllTextAsync(Application.StartupPath + @"/Data/Logs/programLogs.txt", AddToLog);
+            await File.AppendAllTextAsync(Application.StartupPath + @"/Data/Logs/programLogs.txt","\r"+ AddToLog,Encoding.Default);
            
         }
 

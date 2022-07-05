@@ -12,50 +12,62 @@ namespace TextClassification.ProcessingClass.Classification
 {
     public class DataGridDataAdd
     {
-        public void AddData(DataGridView DGV, string DocPath, string DocClass, string DocLang)
+        private DataGridView SelectedDGV;
+        private string DocDateCreate { get; set; }
+        private string DataProcess { get; set; }
+
+        private DataBaseContext _context = new();
+
+        public DataGridDataAdd(DataGridView _selectedDGV)
         {
-            string DataProcess = DateTime.Now.ToShortDateString();
-            string DataCreate = File.GetCreationTime(DocPath).ToShortDateString();
+            SelectedDGV = _selectedDGV;
+        }
+
+        public void AddData(string DocPath, string DocClass, string DocLang)
+        {
+            
+            DataProcess = DateTime.Now.ToShortDateString();
+            DocDateCreate = File.GetCreationTime(DocPath).ToShortDateString();
             try
             {
-                DGV.Rows.Add(
+                SelectedDGV.Rows.Add(
                     Path.GetFileNameWithoutExtension(DocPath),
                     DocClass,
                     DocLang,
                     DataProcess,
-                    DataCreate,
+                    DocDateCreate,
                     isDuplicate(DocPath),
                     DocPath
                     );
-                
+               
             }
-            catch (Exception ex) 
+            catch
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при отображении в таблице", "AddData", ex.ToString());
+                log.Add("Вызванна ошибка при отображении в таблице", "AddData");
             }
             
         }
-        public static string isDuplicate(string DocPath)
+        private string isDuplicate(string DocPath)
         {
-            DataBaseContext _context = new();
-
             try
             {
-                var FindDoc = _context.DocumentClassification.First(x => x.documentName == Path.GetFileNameWithoutExtension(DocPath));
+                var FindDoc =_context.DocumentClassification.First(x => x.documentName == Path.GetFileNameWithoutExtension(DocPath));
+                
                 return "Дублируется";
             }
             catch { return "Добавлен"; }
         }
-        public static async void ChengeColor(DataGridView DGV)
+        public async void ChengeColor()
         {
-            for (int i = 0; i < DGV.RowCount; i++)
+            for (int rowIndex = 0; rowIndex < SelectedDGV.RowCount; rowIndex++)
             {
-                if (DGV.Rows[i].Cells[5].Value.ToString() == "Дублируется")
-                await Task.Run(() => DGV.Rows[i].Cells[5].Style.BackColor = Color.LightBlue);
+                if (SelectedDGV.Rows[rowIndex].Cells[5].Value.ToString() == "Дублируется")
+                {
+                    await Task.Run(() => SelectedDGV.Rows[rowIndex].Cells[5].Style.BackColor = Color.LightBlue);
+                }
             }
         }
-
 
     }
 }

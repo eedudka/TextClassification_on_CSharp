@@ -33,7 +33,7 @@ namespace TextClassification.ProcessingClass.dbComand
             catch (Exception ex)
             {
                 Log log = new();
-                log.Add("Вызванна ошибка при добавлении в БД", "AddToDbNewDoc", ex.ToString());
+                log.Add("Вызванна ошибка при добавлении в БД", "AddToDbNewDoc");
                
             }
             

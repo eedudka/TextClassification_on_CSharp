@@ -44,12 +44,12 @@ namespace TextClassification
         }
         private async void materialButton1_Click(object sender, EventArgs e)
         {
-            #region Обявление полей клссов
+            #region class iniz
             TextSegmentation textSegmentation = new();
             Vectorization vectarization = new();
             Classification classification = new();
             dbLoadDocument SendDocToDB = new();
-            DataGridDataAdd DataGridViewData = new();
+            DataGridDataAdd dataGridDataAdd = new(dataGridView1);
             HttpPostRequest request = new();
             #endregion
 
@@ -62,11 +62,11 @@ namespace TextClassification
                     {
                         textSegmentation.filePath = pathToTextFile;
                         var SegmentationTextVector = await Task.Run(() => request.GetVectorFromWebAPI(textSegmentation.loadedTextLanguage, textSegmentation.GetTokenize()));
-                        var TextClassValue = await Task.Run(() => classification.GetClassName(session,SegmentationTextVector));
+                        var TextClassValue = await Task.Run(() => classification.GetClassName(session, SegmentationTextVector));
 
-                        DataGridViewData.AddData(dataGridView1, pathToTextFile, ChangeClassValueFormat(TextClassValue), textSegmentation.loadedTextLanguage);
+                        //dataGridDataAdd.AddData(pathToTextFile, ChangeClassValueFormat(TextClassValue), textSegmentation.loadedTextLanguage);
 
-                        //await Task.Run(() => SendDocToDB.AddToDbNewDoc(pathToTextFile, TextClassValue.ToString(), "NaN"));
+                        // await Task.Run(() => SendDocToDB.AddToDbNewDoc(pathToTextFile, TextClassValue.ToString(), textSegmentation.loadedTextLanguage));
 
                         materialProgressBar1.Value += 1;
                         label2.Text = "Обработанно документов:" + materialProgressBar1.Value + "/" + LoadFilesPaths.Count;
@@ -74,7 +74,7 @@ namespace TextClassification
                     ProcessTime.Stop();
                     var ProcessTimeResult = ProcessTime.Elapsed.Hours+":" + ProcessTime.Elapsed.Minutes+":" + ProcessTime.Elapsed.Seconds;
                     label2.Text += " ("+ProcessTimeResult+")";
-                    //DataGridDataAdd.ChengeColor(dataGridView1);
+                    //dataGridDataAdd.ChengeColor();
                 }
                 else MaterialMessageBox.Show("Проверьте соединение с сервером", false);  
             }
