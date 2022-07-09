@@ -54,5 +54,6 @@ await File.WriteAllTextAsync("Data/input.txt", textFromPath.ToString(), Encoding
 ```
 
 ## Updates 
-- 02 july 2022 - Update class TextSegmaentation: after refactoring the TS class, processing decreased from 01:52 min (380 files) until 00:56.
+- 02 july 2022 - Update class TextSegmaentation : after refactoring the TS class, processing decreased from 01:52 min (380 files) until 00:56.
 - 03 jule 2022 - Update class Classification : processing time has improved slightly, but now it has become more readable.!
+- 05 jule 2022 - Update class DataGridDataAdd : А bit of a shift from procedural to oop. There was a need to change the idea of presenting data in tables. This change will increase the speed of work.
