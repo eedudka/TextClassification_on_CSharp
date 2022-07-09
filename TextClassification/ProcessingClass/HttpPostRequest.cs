@@ -16,7 +16,7 @@ namespace TextClassification.ProcessingClass
         public string TextLanguage { get; set; }
         public string TextVector { get; set; }
         public string UserName { get; set; }
-        public float[]? GetVectorFromWebAPI(string textLanguage, string[] Text)
+        public float[] GetVectorFromWebAPI(string textLanguage, string[] Text)
         {
             try
             {    
@@ -34,7 +34,7 @@ namespace TextClassification.ProcessingClass
                     var result = client.PostAsync(adressToApi, payLoad).Result.Content
                         .ReadAsStringAsync().Result;
 
-                    var WebAPIrequest = ClearJsonAnser(result)
+                    float[] WebAPIrequest = ClearJsonAnser(result)
                         .ConvertAll(x => float.Parse(x))
                         .ToArray();
 
