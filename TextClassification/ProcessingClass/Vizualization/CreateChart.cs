@@ -21,7 +21,7 @@ namespace TextClassification.ProcessingClass.Vizualization
                     PieChartSeries.Add(new PieSeries<int>
                     {
                         Values = new int[] { PieData[el] },
-                        Name = Format.ChangeClassValueFormat(int.Parse(el))
+                        //Name = Format.ChangeClassValueFormat(int.Parse(el))
                     });
                 }
 

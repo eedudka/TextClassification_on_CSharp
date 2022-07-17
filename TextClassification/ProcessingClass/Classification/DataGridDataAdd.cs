@@ -12,6 +12,7 @@ namespace TextClassification.ProcessingClass.Classification
 {
     public class DataGridDataAdd
     {
+        private int docIndex =0;
         private DataGridView SelectedDGV;
         private string DocDateCreate { get; set; }
         private string DataProcess { get; set; }
@@ -67,6 +68,35 @@ namespace TextClassification.ProcessingClass.Classification
                     await Task.Run(() => SelectedDGV.Rows[rowIndex].Cells[5].Style.BackColor = Color.LightBlue);
                 }
             }
+        }
+        public void AddDataAfterClassification(string[,] tempData,int dataSize, string DocPath, string DocClass, string DocLang)
+        {
+            DataProcess = DateTime.Now.ToShortDateString();
+            DocDateCreate = File.GetCreationTime(DocPath).ToShortDateString();
+
+            tempData[docIndex, 0] = Path.GetFileNameWithoutExtension(DocPath);
+            tempData[docIndex, 1] = DocClass;
+            tempData[docIndex, 2] = DocLang;
+            tempData[docIndex, 3] = DataProcess;
+            tempData[docIndex, 4] = DocDateCreate;
+            tempData[docIndex, 5] = "Дублируется";
+
+            if (docIndex.Equals(dataSize))
+            {
+                for (int rowIndex = 0; rowIndex < dataSize; rowIndex++)
+                {
+                    var row = new DataGridViewRow();
+                    for (int columnIndex = 0; columnIndex < 6; columnIndex++)
+                    {
+                        row.Cells.Add(new DataGridViewTextBoxCell()
+                        {
+                            Value = tempData[rowIndex, columnIndex]
+                        });
+                    }
+                    SelectedDGV.Rows.Add(row);
+                }
+            }
+            else docIndex++;
         }
 
     }

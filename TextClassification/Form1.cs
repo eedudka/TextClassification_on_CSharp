@@ -26,11 +26,13 @@ namespace TextClassification
         private List<string> LoadFilesPaths { get; set; } = new();
         private const string ONNX_MODEL_ENG_PATH = @"Data/Models/catBoost_FastTextWrapper.onnx";
         private const string ONNX_MODEL_RUS_PATH = @"empty.onnx";
+
         private InferenceSession session { get; set; }
 
         #region MainCode
         private async void Form1_Load(object sender, EventArgs e)
         {
+
             Classification Onnx = new();
             Onnx.modelPath = ONNX_MODEL_ENG_PATH;
             session = Onnx.LoadClassificationModel();
@@ -39,11 +41,12 @@ namespace TextClassification
             switchPioChart.Checked = true;
             timer1.Enabled = true;
             timer1.Interval = 5000;
-            await Task.Run(()=> timer1.Start());
-            
+            await Task.Run(() => timer1.Start());
+
         }
         private async void materialButton1_Click(object sender, EventArgs e)
         {
+
             #region class iniz
             TextSegmentation textSegmentation = new();
             Vectorization vectarization = new();
@@ -53,33 +56,32 @@ namespace TextClassification
             HttpPostRequest request = new();
             #endregion
 
+
+
             if (LoadFilesPaths.Count > 0)
             {
-                if (await Task.Run(()=>request.isServerRunning()))
+                if (await Task.Run(() => request.isServerRunning()))
                 {
                     var ProcessTime = Stopwatch.StartNew();
                     foreach (var pathToTextFile in LoadFilesPaths)
                     {
                         textSegmentation.filePath = pathToTextFile;
                         var SegmentationTextVector = await Task.Run(() => request.GetVectorFromWebAPI(textSegmentation.loadedTextLanguage, textSegmentation.GetTokenize()));
-                        var TextClassValue = await Task.Run(() => classification.GetClassName(session, SegmentationTextVector));
-
-                        //dataGridDataAdd.AddData(pathToTextFile, ChangeClassValueFormat(TextClassValue), textSegmentation.loadedTextLanguage);
-
-                        // await Task.Run(() => SendDocToDB.AddToDbNewDoc(pathToTextFile, TextClassValue.ToString(), textSegmentation.loadedTextLanguage));
-
+                        var TextClassValue = classification.GetClassName(session, SegmentationTextVector);
+                        dataGridDataAdd.AddData(pathToTextFile, ChangeClassValueFormat(TextClassValue), textSegmentation.loadedTextLanguage);
+                        await Task.Run(() => SendDocToDB.AddToDbNewDoc(pathToTextFile, TextClassValue.ToString(), textSegmentation.loadedTextLanguage));
                         materialProgressBar1.Value += 1;
                         label2.Text = "Обработанно документов:" + materialProgressBar1.Value + "/" + LoadFilesPaths.Count;
                     }
                     ProcessTime.Stop();
-                    var ProcessTimeResult = ProcessTime.Elapsed.Hours+":" + ProcessTime.Elapsed.Minutes+":" + ProcessTime.Elapsed.Seconds;
-                    label2.Text += " ("+ProcessTimeResult+")";
-                    //dataGridDataAdd.ChengeColor();
+                    var ProcessTimeResult = ProcessTime.Elapsed.Hours + ":" + ProcessTime.Elapsed.Minutes + ":" + ProcessTime.Elapsed.Seconds;
+                    label2.Text += " (" + ProcessTimeResult + ")";
+                    dataGridDataAdd.ChengeColor();
                 }
-                else MaterialMessageBox.Show("Проверьте соединение с сервером", false);  
+                else MaterialMessageBox.Show("Проверьте соединение с сервером", false);
             }
-            else MaterialMessageBox.Show("Загрузите папку с текстами!",false);
-        } //Обработка
+            else MaterialMessageBox.Show("Загрузите папку с текстами!", false);
+        }
         private async void materialButton2_Click(object sender, EventArgs e)
         {
             DataForCharts dataForCharts = new();
@@ -88,7 +90,7 @@ namespace TextClassification
             pieChart1.LegendPosition = LiveChartsCore.Measure.LegendPosition.Bottom;
             pieChart1.LegendOrientation = LiveChartsCore.Measure.LegendOrientation.Auto;
 
-            
+
             var XAxes = new Axis[]
                     {
                      new Axis
@@ -130,24 +132,24 @@ namespace TextClassification
                 if (switchColumnChart.Checked)
                 {
                     string ClassValue = (materialComboBox1.SelectedIndex + 1).ToString();
-                    var SelectDataForColumnChart = await Task.Run(() => dataForCharts.GetSelectDataFromDBForColumnChart(StartData, EndData,ClassValue));
+                    var SelectDataForColumnChart = await Task.Run(() => dataForCharts.GetSelectDataFromDBForColumnChart(StartData, EndData, ClassValue));
                     cartesianChart1.Series = createChart.BuildColumnChartData(SelectDataForColumnChart);
                 }
 
             }
-            
-        } //Построить
+
+        } 
         private void materialButton5_Click(object sender, EventArgs e)
         {
             var SplitFile = new SplitFile();
             SplitFile.Split(dataGridView1);
-        } //Разбить по папкам
+        } 
         private void saveChart_Click(object sender, EventArgs e)
         {
             ChartToImage chartToImage = new();
             if (switchPioChart.Checked) chartToImage.Save(pieChart1);
             if (switchColumnChart.Checked) chartToImage.Save(cartesianChart1);
-        } // Сохранить в фото
+        } 
         #endregion
         #region DragDrop FileLoad
         private void materialCard1_DragDrop(object sender, DragEventArgs e)
@@ -162,8 +164,8 @@ namespace TextClassification
                     LoadFilesPaths.AddRange(Directory.GetFiles(pathik, "*.txt", SearchOption.AllDirectories));
                 }
             }
-            MaterialMessageBox.Show("Загруженно "+LoadFilesPaths.Count+" документов");
-            label2.Text = "Обработанно документов: 0/"+LoadFilesPaths.Count;
+            MaterialMessageBox.Show("Загруженно " + LoadFilesPaths.Count + " документов");
+            label2.Text = "Обработанно документов: 0/" + LoadFilesPaths.Count;
             materialProgressBar1.Maximum = LoadFilesPaths.Count;
             materialProgressBar1.Value = 0;
         }
@@ -179,10 +181,10 @@ namespace TextClassification
         #region Swither
         private void switchPioChart_CheckedChanged(object sender, EventArgs e)
         {
-            if (switchPioChart.Checked) 
+            if (switchPioChart.Checked)
             {
                 materialComboBox1.Enabled = false;
-                switchColumnChart.Checked = false; 
+                switchColumnChart.Checked = false;
                 pieChart1.Visible = true;
                 cartesianChart1.Visible = false;
 
@@ -198,7 +200,7 @@ namespace TextClassification
                 switchPioChart.Checked = false;
                 pieChart1.Visible = false;
                 cartesianChart1.Visible = true;
-               // pieChart1.Dispose();
+                // pieChart1.Dispose();
             }
         }
         #endregion
@@ -236,7 +238,7 @@ namespace TextClassification
                 label1.Text = "Состояние сервера: Не найден";
                 label1.ForeColor = Color.Red;
                 pictureBox2.Image = TextClassification.Properties.Resources.remove;
-            } 
+            }
         }
         #region Read File From DataGrid
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -250,14 +252,9 @@ namespace TextClassification
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-                materialButton2.Enabled = true;
-                //int RowIndex = dataGridView1.CurrentRow.Index;
 
-                //if (dataGridView1.Rows[RowIndex].Cells[6].Value.ToString() != null)
-                //{
-                //    materialButton4.Enabled = true;
-                //}
+            materialButton2.Enabled = true;
+           
         }
         private void materialButton4_Click(object sender, EventArgs e)
         {
@@ -267,8 +264,7 @@ namespace TextClassification
             }
         }
         #endregion
-
-        public string ChangeClassValueFormat(int ClassValue)
+        private string ChangeClassValueFormat(int ClassValue)
         {
             string ClassName = string.Empty;
             switch (ClassValue)

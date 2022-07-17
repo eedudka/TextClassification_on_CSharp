@@ -58,3 +58,4 @@ await File.WriteAllTextAsync("Data/input.txt", textFromPath.ToString(), Encoding
 - 03 jule 2022 - Update class Classification : processing time has improved slightly, but now it has become more readable.
 - 05 jule 2022 - Update class DataGridDataAdd : А bit of a shift from procedural to oop. There was a need to change the idea of presenting data in tables. This change will increase the speed of work.
 - 09 jule 2022 - During the revision of the HttpPostRequest class, it became clear that it was necessary to abandon the use of var with types where the system selects a Nullable option for them. Nullable types can certainly be modern, but I don't think they are correct. 
+- 17 jule 2022 - Updated the data display in DataGridView, also removed unnecessary TaskRun. All this led to a reduction in the "processing + display" operation time, but left the same principle of "processed - showed the result".
